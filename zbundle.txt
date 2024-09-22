@@ -1,0 +1,20 @@
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+cd android
+
+./gradlew assembleDebug
+
+Location->>>yourProject/android/app/build/outputs/apk/debug/app-debug.apk
+
+./gradlew assembleRelease
+
+yourProject/android/app/build/outputs/apk/release/app-release.apk
+
+
+
+Temporary build files: The build process might generate temporary files in the android/app/build/ folder, but they are separate from your source code. You can delete them anytime (e.g., with ./gradlew clean), and it won’t affect your app's code.
+
+
+
+//use if first dont work///////
+curl "http://localhost:8081/index.android.bundle?platform=android" -o "android/app/src/main/assets/index.android.bundle"

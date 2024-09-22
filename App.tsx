@@ -11,6 +11,7 @@ import {
 import FlatCard from './components/FlatCard'
 import EleavatedCards from './components/EleavatedCards'
 import FancyCards from './components/FancyCards'
+import ContactList from './components/ContactList'
 
 const App = () => {
   const theme=useColorScheme()=='dark';
@@ -20,6 +21,7 @@ const App = () => {
         <FlatCard />
         <EleavatedCards />
         <FancyCards />
+        <ContactList/>
       </ScrollView>
     </SafeAreaView>
   )

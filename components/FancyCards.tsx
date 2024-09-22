@@ -22,12 +22,12 @@ const FancyCards = () => {
                         style={[styles.cardImg]}
                     />
                     <View style={[styles.cardBody]}>
-                        <Text style={[styles.cardTitle, textColor]}>Nature</Text>
-                        <Text style={[styles.CardLabel, textColor]}>Wild life Craziest Place Ever</Text>
-                        <Text style={[styles.description, textColor]}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, atque. </Text>
-                        <Text style={[styles.CardFooter, textColor]}>Lorem ipsum dolor sit amet. </Text>
+                        <Text style={[styles.cardTitle, {color:'white'}]}>Nature</Text>
+                        <Text style={[styles.CardLabel, {color:'white'}]}>Wild life Craziest Place Ever</Text>
+                        <Text style={[styles.description, {color:'white'}]}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, atque. </Text>
+                        <Text style={[styles.CardFooter, {color:'white'}]}>Lorem ipsum dolor sit amet. </Text>
                         <TouchableOpacity onPress={() => openwebsite("https://images.pexels.com/photos/18998608/pexels-photo-18998608/free-photo-of-top-view-of-a-body-of-water-and-forest.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")}>
-                            <Text>open url</Text>
+                            <Text style={[{color:'white'}]}>open url</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -44,10 +44,10 @@ const FancyCards = () => {
                             />
                           </TouchableOpacity>
                             <View style={[styles.cardBody]}>
-                                <Text style={[styles.cardTitle, textColor]}>{item.cardTitle}</Text>
-                                <Text style={[styles.CardLabel, textColor]}>{item.cardLabel}</Text>
-                                <Text style={[styles.description, textColor]}>{item.cardDescription} </Text>
-                                <Text style={[styles.CardFooter, textColor]}>{item.cardFooter} </Text>
+                                <Text style={[styles.cardTitle, {color:'white'}]}>{item.cardTitle}</Text>
+                                <Text style={[styles.CardLabel, {color:'white'}]}>{item.cardLabel}</Text>
+                                <Text style={[styles.description, {color:'white'}]}>{item.cardDescription} </Text>
+                                <Text style={[styles.CardFooter, {color:'white'}]}>{item.cardFooter} </Text>
                                 {/* <TouchableOpacity>  */}
                                 <Text onPress={() => openwebsite(item.imageUrl)} style={[styles.opnButton]}>Open - image</Text>
                                 {/* </TouchableOpacity> */}
