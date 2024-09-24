@@ -8,10 +8,10 @@ import {
   useColorScheme,
 
 } from 'react-native'
-import FlatCard from './components/FlatCard'
-import EleavatedCards from './components/EleavatedCards'
-import FancyCards from './components/FancyCards'
-import ContactList from './components/ContactList'
+import FlatCard from './components/starter/FlatCard'
+import EleavatedCards from './components/starter/EleavatedCards'
+import FancyCards from './components/starter/FancyCards'
+import ContactList from './components/starter/ContactList'
 
 const App = () => {
   const theme=useColorScheme()=='dark';

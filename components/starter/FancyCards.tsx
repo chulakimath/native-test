@@ -1,6 +1,6 @@
 import { Button, Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native'
 import React from 'react';
-import catCards from '../component-data/cats';
+import catCards from '../../component-data/cats';
 
 const FancyCards = () => {
     const theme = useColorScheme() == 'dark';
