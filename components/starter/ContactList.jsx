@@ -1,6 +1,6 @@
 import { Image, Modal, Pressable, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import React, { useState } from 'react';
-import contactUsers from '../component-data/contsctList-data';
+import contactUsers from '../../component-data/contsctList-data';
 
 const ContactList = () => {
     const theme = useColorScheme() == 'dark';
