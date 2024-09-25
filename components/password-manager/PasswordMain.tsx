@@ -1,8 +1,9 @@
-import { Alert, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native'
-import React, { useState } from 'react';
+import { Alert, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View, ToastAndroid } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Clipboard from '@react-native-clipboard/clipboard';
 
 const passwordSchema = Yup.object().shape({
     PasswordLength: Yup.number()
@@ -11,6 +12,7 @@ const passwordSchema = Yup.object().shape({
         .max(32, 'Password length cannot exceed 32'),
 });
 
+
 const PasswordMain = () => {
     const [password, SetPassword] = useState('');
     const [isPasswordGenerated, setIsPasswordGenerated] = useState(false);
@@ -18,6 +20,9 @@ const PasswordMain = () => {
     const [upperCase, setupperCase] = useState(false);
     const [number, setnumbers] = useState(true);
     const [specialCharacters, setSpecialCharacters] = useState(false);
+    const inputRef = useRef(null);
+
+
 
     const generatePasswordString = (passwordLength: number) => {
         let charactersList = "";
@@ -46,7 +51,10 @@ const PasswordMain = () => {
             const characterIndex = Math.round(Math.random() * characters.length);
             result += characters.charAt(characterIndex);
         }
-        return result;
+
+        return result.padEnd(passwordLength, '0');
+
+
     }
     const resetPasswordState = () => {
         setIsPasswordGenerated(false);
@@ -55,6 +63,22 @@ const PasswordMain = () => {
         setupperCase(false);
         setSpecialCharacters(false);
         setnumbers(true);
+    }
+    const showToastMessage = () => {
+        ToastAndroid.show('Password is copied to clipboard', ToastAndroid.LONG);
+    }
+    const copyToclip = () => {
+        Clipboard.setString(password);
+    }
+    const handleLongPress = () => {
+        if (password.length) {
+            showToastMessage();
+            copyToclip();
+        }
+        else {
+            ToastAndroid.show('Generate Password to Copy', ToastAndroid.SHORT)
+        }
+
     }
     const theme = useColorScheme() == 'dark';
     const colorfront = theme ? styles.whiteColor : styles.blackColor;
@@ -65,6 +89,11 @@ const PasswordMain = () => {
             <SafeAreaView style={[backColor]}>
                 <View>
                     <Text style={[styles.heading, colorfront]}>Password Generator</Text>
+                    <View style={[{ marginHorizontal: 10, marginVertical: 10 }]}>
+                        <Pressable onLongPress={handleLongPress}>
+                            <TextInput value={password} placeholder='Your Password Comes Here' readOnly style={[{ borderWidth: 1, borderRadius: 10, paddingHorizontal: 10 }, colorfront, borderColour]} />
+                        </Pressable>
+                    </View>
                     <Formik
                         initialValues={{ PasswordLength: '' }}
                         validationSchema={passwordSchema}
@@ -92,6 +121,7 @@ const PasswordMain = () => {
                                         </View>
                                         <View>
                                             <TextInput
+                                                ref={inputRef}
                                                 style={[styles.inputbox, colorfront, borderColour]}
                                                 value={values.PasswordLength}
                                                 onChangeText={handleChange('PasswordLength')}
@@ -104,7 +134,7 @@ const PasswordMain = () => {
                                     </View>
                                     {
                                         touched.PasswordLength && errors.PasswordLength && (
-                                            <Text style={[{ color: 'red', paddingHorizontal:30 }]}>{errors.PasswordLength}</Text>
+                                            <Text style={[{ color: 'red', paddingHorizontal: 30 }]}>{errors.PasswordLength}</Text>
                                         )
                                     }
                                 </View>
@@ -168,9 +198,9 @@ const PasswordMain = () => {
                     </Formik>
                 </View>
                 {isPasswordGenerated ? (
-                    <View style={[styles.passwordContainer,{backgroundColor:theme?"white":'black',flex:1,justifyContent:'center'}]}>
-                        <Text selectable={true} style={[{color:theme?'black':'white',fontSize:16,textAlign:'center'}]} >{password}</Text>
-                    </View>
+                    <>
+                        <Text style={[{ padding: 10 }]}>long Press on Password To copy</Text>
+                    </>
                 ) : ''}
             </SafeAreaView>
         </ScrollView>
@@ -204,7 +234,7 @@ const styles = StyleSheet.create({
         height: 40,
         width: 125,
         marginHorizontal: 15,
-        borderWidth: 2,
+        borderWidth: 1,
         padding: 1,
         paddingLeft: 10,
         borderRadius: 10
@@ -260,9 +290,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 500
     },
-    passwordContainer:{
-        width:'100%',
-        height:100,
-        marginVertical:10,
+    passwordContainer: {
+        width: '100%',
+        height: 100,
+        marginVertical: 10,
     }
 })
